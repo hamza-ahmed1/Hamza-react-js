@@ -1,0 +1,729 @@
+Installing react js
+1-install vs code and its extensions 
+2-install node and npm(pakage manager for local development support)
+3-cheak virsion via 
+
+open cmd
+npm -g create-react-app 
+create-react-app app-name
+
+starting react app on server
+npm start :--run application on browser with port no 3000
+
+-----workflow of react----
+index.js [entry point of our project] inside src
+index.html [for rander/display html] inside public
+app.js [component] inside src
+
+basic communiction cycle between files
+component files like app.js export components to index.js(which gets multiple 
+components)
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root is the ID of element in index.html [which is supposed to show data]
+recieved by components via index.js 
+
+.render() display specified html define in component on index.html page
+
+
+JSX in React Application 
+it is the extension of javascript 
+it is also known as js XML
+it allows to write html code in react
+we can also write expression in JSX 
+i-e var name="hamza"; <h1>{name}</h1>or<h1>{5+55}</h1> etc
+
+JSX fragments:
+allows to pass multiple elements 
+syntax: <> elements </>
+react allows if statement but not inside JSX
+
+
+components:
+same as js function but work on html in isolation(seprate file)
+there are 2 types of components function and class components 
+
+How to create componets:
+1-import react component as alias
+2-create function with JSX 
+3-export that function
+we can call multiple components in one function like app.js and then
+call <app/> like that in index.js
+
+-----------REACT PROPS-------------
+props full form is properties
+it is just like argument in js function while function is component
+props are read only and immutable means we can't change thier values(props)
+Children props: we can pass multiple html elements in obj argument
+<Greetings>
+<h1>Hi</h1>
+</Greetings>
+for getting them there is a built in property name children 
+{obj.children} will access all of them 
+Pass data : transfer of data between two components
+
+-----------PROPS TYPES-----------
+use for data type cheaking
+we have to install the dependancy by writting npm install prop-types
+App.propTypes={
+    name:PropTypes.string,
+    age:PropTypes.number,
+    arr:PropTypes.array
+}
+error will show in console if cotradict data types will provided
+
+isRequired : neccessory to pass the value else error will show
+
+defalutProps: use to set defalut properties values
+
+App.defalutProps={
+    name:"XYZ",
+}
+
+----------------Arrow functions in react-------------
+shorter version of function componets:
+const SayHi=()=><h1>Hamza Khan</h1>
+
+
+-------------defalut export VS named export -------
+Default Export: one defalut export per file
+when we import we have to specify a name(it would be any name) 
+
+Named Export: one can have multiple named export per file
+syntax: {App,App1} 
+when we import we have to specify a name(it would be same)
+
+-------------------- Class Components ------------------
+1-import React from 'react'
+2-extend the class from React.Components
+3-create a render function with return statement 
+
+SHORT:rcc (react class components)
+and rccp(react class componets wit prop)
+
+----------- Class Component Props- -------
+ {this.props.propertyname} :for getting the property
+ {this.prop.Children} :for getting children data
+
+ ----Prop types in Class Props-------
+ for Installing prop type dependancy use : npm install prop-types
+ 1-import prop type
+ Componentname.propTypes={...}
+
+ -------------Constructor in class component------------
+ Constructor()       OR Constructor(props){
+{
+        super();            super(props)            
+                    
+                                }
+ }
+
+                    
+Constructor is called when component is called :
+super() is for calling parent Constructor
+
+------State in class Componenets----
+props are immutable properties so we can't change them
+state are changeable properties define in class Constructor
+To access those properties use this.state
+--.setState()is a function to set state we can call it after cliking
+when state change components re-render
+
+----Destructuring props and state-------
+this concept came in ES6
+it is a way to store array's index values in seprate variables
+-1 var/index[i]
+const[var1,var2,var3]=arr;
+
+1-Destructuring with props
+1-destructuring one way
+export default function Customer({name,age}) {
+  return (
+    <div>
+      <h1>{name}</h1>
+      <h1>{age}</h1>
+    </div>
+  )
+}
+// 2-another way
+export default function Customer(props) {
+    const {name,age}=props;
+  return (
+    <div>
+    <h1>{name}</h1>
+    <h1>{age}</h1>
+  </div>
+  )
+}
+
+----with classes 
+import React, { Component } from 'react'
+
+// export default class Customer extends Component {
+//   render() {
+//     const {name,age}=this.props;
+//     return (
+      
+//     <div>
+//      <h1>{name}</h1>
+//      <h1>{age}</h1>
+//   </div>
+      
+//     )
+//   }
+// }
+
+------with state
+const {name,age}=this.state;
+
+
+------LEC 31------------
+---------------External styles-----------
+create .css file 
+it is recommended to give that file a name as your componet name 
+because in react it is recommended to have 1 Component per style
+
+create a component and import that css file 
+now you can use all style from .css in this component
+
+--conditonal redering:
+window.innerHeight --->gives you innerHeight
+code:
+var classname;
+      if(window.innerWidth<600)
+      {
+        classname='Heading1';
+      }
+      else  if(window.innerWidth>600)
+      {
+        classname='main_H';
+      }
+
+
+Problem in external CSS :
+naming conflict:
+when we have same classes in differnt style sheets then naming conflict
+occurs means only one class will applied :
+How to avoid naming conflict:
+while creating styling components:style.module.css
+while importing : import Allies from 'style.module.css'
+
+
+--------LEC 34---
+-----------Hooks in React JS------------
+it provides state functionallity inside the function
+we can use features like life cycle of component
+Hooks are basically functions 
+Rules:
+hooks can be called inside a React functional component 
+it must be on top of the component
+
+-We have several types of Hooks -----
+1-Use State:
+it is a new way to declaring a state in react app
+Code Example :
+export default function UseStateComponent() {
+  const [name,setname]=useState("Type Something Here");
+
+  
+  let HandleClick=()=>{
+    alert(name);
+  }
+
+  const HandleChange=(event)=>
+  {
+      setname(event.target.value);
+  }
+  return (
+    <div>
+      <h1 className='main_H'>{name}</h1>
+      <label >Entee New Name </label>
+      <input id="name" type='text' value={name} onChange={HandleChange}/>
+
+      <br/>
+      <button onClick={HandleClick}>Update</button>
+
+    </div>
+  )
+}
+
+
+-----Set State with objects-----------
+when state is updated the entire state is overwritten
+what if we have to update just only one property
+in this case we have to use spread operator ...preprop <-- paramenter
+    let ChangeState=()=>{
+        setobj(previousstate=>{
+            return{
+                ...previousstate,
+                name:"Daniyal"
+        }
+        })
+    }
+
+  -------------------Use Effect-----------
+  Useeffect(function,dependecies);
+  1st parameter  will be fuction which will called after
+  component mount,update and unmount
+  this will effect our application's performance
+  so the 2nd paramenter is dependency
+  this will take array of states ,props
+  like that:[name,count]
+  so whenever name (prop),count(state) will update function will called
+
+
+  ----USE Context Hook--------
+  React context is the way to manage state globally
+  by using react context we can refrain from doing prop drilling  
+  Code:
+  import { useContext } from 'react'
+export const NameContext=createContext();
+export default function App() {
+  return (
+    <div>
+    <NameContext.Provider value={"Hamza"}>
+     <ComponentA/>
+    </NameContext.Provider>
+
+    </div>
+  )
+}
+
+Comp C:
+import { NameContext } from './App'
+const name=useContext (NameContext);
+
+
+----------------Form Controlling in React -------
+1-Controlled component
+2-Uncontrolled Component
+
+Controlled Componenet Theory:
+In react DOM is not responsible for manipulating form element 
+but we can manipulate by differnt functions 
+one is onChange ()--> this funtios is called when text field is updated
+we can easily get its value by event e.target.value 
+
+Onsubmission(this.FormSubmissionHandle)
+    FormSubmissionHandle=(e)=>
+    {
+      e.preventDefault();
+      console.log(e.target[0].value);
+    }
+  
+------Handling multiple input fields----------
+Problem: if we have multiple input fields so how we will update the 
+state of each element:
+sol : we will use only one onChange function and that func will 
+differentiate on the basis of Name ttribute of HTML
+
+
+------Handling Text Area-------------
+Code:    const [msg,updatemg]=useState("");
+    const submitHandle=(e)=>{
+        e.preventDefault();
+        console.log(e.target[0].value);
+    }
+  return (
+    <div>
+    <form onSubmit={submitHandle}>
+        
+      <label>Enter Comments : </label>
+      <br/>
+      <textarea type='textarea'  onChange={(e)=>{updatemg(e.target.value)}} value={msg} rows={'4'}/>
+      <br/>
+      <input type='submit' value={'submit'}/>
+
+  )
+--------Select Menu------------
+CODE:  <select value={selected_val} onChange={(e)=>{updateval(e.target.value)}}>
+        <option>UK</option>
+        <option>US</option>
+        <option>Pakistan</option>
+        <option>Japan</option>
+
+      </select>
+          const [selected_val,updateval]=useState("US");
+
+-------WORKING WITH SINGLE CHECK BOX------------
+    const [checked_val,update_checked]=useState(false);
+
+       <label>I have agreed on terms &nbsp;</label>
+      <input type='checkbox' />
+
+
+-----------WORKING With multiple checkboxes-------
+
+
+          const [courses_arr,update_courses]=useState([]);
+        <label >Select Your Courses :&nbsp;</label>
+      <input type='checkbox' name='courses' value={'DSA'} onChange={HandleChange}/>
+      <label>DSA &nbsp;</label>
+      <input type='checkbox' name='courses' value={'LA'} onChange={HandleChange}/>
+      <label>LA &nbsp;</label>
+      <input type='checkbox' name='courses' value={'COAL'} onChange={HandleChange}/>
+      <label>COAL&nbsp;</label>
+
+    const HandleChange=(e)=>{
+    
+      const value=e.target.value;
+      const checked=e.target.checked;
+      if(checked)
+      {
+        update_courses([
+          ...courses_arr,e.target.value
+        ])
+      }
+      else{
+        update_courses(courses_arr.filter((e)=>(e!==value)))
+      }
+    }
+
+    -----------------React Refs-----------------
+    Refs is the shortend use for referance in react
+    it is similar to key in react 
+    it provides us a way to maniuplate actual DOM 
+    we should avoid refs where possible 
+
+    How to create refs?
+    import 'reference' from react
+    create by using createRef
+    we can assaign by using ref attribute in html
+    just access cur attribute and manipulate DOM
+
+
+    --------------------Uncontrolled Components--------
+    CODE:  componentDidMount()
+    {
+        console.log(this.nameref);
+        console.log(this.ageref);
+
+    }
+
+     formHandler=(e)=>{
+        e.preventDefault();
+            console.log(e);
+    }
+  render() {
+    return (
+      <div>
+
+      <form onSubmit={formHandler}>
+
+        <lable >Enter Name&nbsp;</lable>
+        <input ref={this.nameref} type='text' />
+        <br/>
+        <lable>Enter Age&nbsp;</lable>
+        <input ref={this.ageref} type='number' />
+        <br/>
+        <br/>
+        <input type='submit' value={'submit'} />
+      </form>
+      </div>
+    )
+  }
+
+
+-----CALL BACK REF------------
+function recieve a DOM element as argument and manipulate it 
+CODE:
+export default class CallBackRef extends Component {
+    constructor(props) {
+        super(props);
+        this.ref=null;
+  
+  
+   2`      this.setref=(element)=>{
+            this.ref=element;
+        }
+    }
+
+    componentDidMount()
+    {
+        console.log(this.ref);
+    }
+  render() {
+    return (
+      <div>
+        <h1 ref={this.setref}>This is Heading</h1>
+      </div>
+    )
+  }
+}
+
+-------------USE REF HOOK IN REACT ------------
+  const ref=useRef();
+
+
+-----------------REACT ROUTER---------
+React don't have built in library for Routing 
+we have to install it
+we can go one page to another with out page reloading just like AJAX request
+
+Installing and Setup>>
+
+>>>Configuring Routing>>>>---------->>>>>>
+1st step:import browser ROUTER componenet from 'react-router-dom' inside 'index.js'
+2nd step:create pages
+3rd step: import route and routes componenet from 'react-router-dom' inside 'app.js'
+
+
+>>>>>>Navigation------>>>>>
+import Link from react-router-dom inside navbar.js 
+
+CODE:  
+<nav>
+    <Link to={'/'}>Home</Link>
+    <Link to={'/About'}>About</Link>
+    <Link to={'/Contact'}>Contact</Link>
+</nav>
+
+Call navbar component inside App.js
+ 
+ -------Active Link in React Routing------
+  we will use navlink instead of link from 'react-router-dom'
+  WHY?? NAvlink provide active  class
+
+  -------Navigating Programmatically-----
+  Navigation on button onClick
+  Navigation inside event HAndler
+  Navigating to multiple pages with single event handler
+  Condition base NAvigation
+
+    1-Navigation On button click
+usenavigation() hook will use:
+CODE:const navigate=useNavigate();
+<button onClick={()=>{navigate('./About')}}>About</button>
+    2-Navigatio on event Handler 
+   const NavigateToAbout=()=>{
+    navigate('/About')
+  } 
+  <button onClick={NavigateToAbout}>About</button>
+
+    3-Sigle event Handler for multiple pages
+      const navigate=useNavigate();
+  const NavigateToAbout=(url)=>{
+    navigate(url)
+  }
+   <button onClick={()=>NavigateToAbout('/About')}>About</button>
+   4-Condition Based Navigation
+   simply use if else while calling  navigate(url)
+
+-------Page Not Found------
+path for unmatched link is '*'
+just show your error page on above link path={'*'} 
+
+-----------Nested Routes----------
+Inside App.js
+ <Route path='/Products' element={<Products/>}>
+      <Route path='Tshirts' element={<Tshirts/>}/>
+      <Route path='Shirts' element={<Shirts/>}/>
+
+</Route>
+
+in which we have to nested our link just like that :
+    <nav>
+        <Link to='Shirts' >Shirts</Link>
+        <Link to='Tshirts' >Paints</Link>
+
+    </nav>
+    <Outlet/>
+
+
+---------Index Route in React Router------
+when we click on any link which nested other links we have active one of 
+other link that would be better for use
+
+  <Route index element={<Shirts/>}/>
+
+  --------Dynamic Routing---- 
+
+  There are 2 types of Routing
+  above we have discussed static routing 
+  links decide on run time 
+  like id =1,2,3,
+  Users/1,Users/2..
+
+  ------UsePArams Hook()  -------
+  UseParams() gives us obj
+
+  ------SearchPArams()----
+  Query string ,start form ?
+  ?q=Hamza  //
+
+    const [searchparams,setsearchparams]=useSearchParams();
+  const searchHandle=(e)=>{
+    e.preventDefault();
+    console.log(searchparams.get('q'));
+  }
+
+   <input type='text' onChange={(e)=>{setsearchparams({q:e.target.value})}}/>
+    <input type='submit' value={'Search'} onClick={searchHandle}/>
+
+
+----------Absolute and Relative path-------
+Relative paths not starts with /
+absolute path starts /
+relative path joins to nearest path
+while absolute path starts with root element like 3000
+
+
+-----LAzy Loading In react---------
+
+-----when we have to call several components in 'App.js'
+and we have some of them of large data and Some of them with small
+amount of data so for loading as soon as possible the comp we need lazy loading 
+
+we have to apply lazy loading in 'App.js'
+1-import ,suspance and lazy componenet from react library
+2-dynamic import components using lazy function
+3-put comp of large data inside suspance block
+4-give loading div to fallback prop of suspance block
+
+
+-----------Formik and Yup Library------
+Formik is used for:
+1-Form HAndling 
+2-From state managment 
+3-Accessing the form data
+
+for install:npm i fromik
+
+use Hook:useFormik()
+
+initialize empty fields and setting on change event:
+    const forminitialvalues={
+        name:'',
+        email:''
+    }
+    const formik=useFormik({
+        initialValues:forminitialvalues
+    });
+      <input name='name' type='text' onChange={formik.handleChange} 
+      value={formik.values.name} />
+-Getting Data from form---
+
+    use formik.handleSubmit in onSubmit 
+    then :
+           onSubmit:(values)=>{
+            console.log(values);
+        }
+
+we can also destructure the 
+handleSubmit,handleChange,values form formik obj
+
+
+----------Working with Yup Library---
+used for error Handling
+1-Create Schema file
+
+import * as Yup from 'yup'
+export const FormSchema=Yup.object({
+    name:Yup.string().min(3).max(20).required(),
+    email:Yup.string().email().required()
+})
+
+ validationSchema:FormSchema,
+
+ mssg in : formik.error.name
+
+
+ ------More validation with Yup----
+Touched event:
+
+HandleBlur:
+formik.HandleBlur
+
+use case:
+when we touched a field then all fields error will show even we hav't 
+touched them this is not good for UX 
+so while we show span error remember these toe conditions;
+formik.error && formik.touched
+CODE: {formik.errors.name && formik.touched.name ?  <span>{formik.errors.name}</span>:null }
+
+Age validation:
+ age:Yup.number().min(18).max(50).required()
+password validation:
+
+Confirm Password validation:
+Reset Form:
+
+
+
+-------Creating Form with Formik components--------
+we use formik component instead of input fields:
+CODE:
+    <div>
+      <Formik 
+      initialValues={
+        {
+        name:'',
+        age:'',
+        password:'',
+        gender:'',
+        course:'',
+        country :'',
+        comments:''
+        }
+      }
+      onSubmit={(values)=>{
+        console.log(values);
+      }}
+      >
+        <Form>
+        {/* text and number fields */}
+            <label>Name : </label>
+            <Field type='text' name='name' />
+            <br/>
+            <br/>
+            <label>Age : </label>
+            <Field type='number' name='age' />
+            <br/>
+            <br/>
+            <label>Enter Password : </label>
+            <Field type='text' name='password' />
+            <br/>
+            <br/>
+
+            {/* radio buttons */}
+            <label>Gender:  </label>
+            <Field type='radio' name='gender' value='male'/>
+            <label>Male</label>
+            <Field type='radio' name='gender' value='female'/>
+            <label>Female</label>
+            <br/>
+            <br/>
+
+            {/* CheckBoxes */}
+            <label>Select Courses : </label>
+            <br/>
+            <label>DSA &nbsp;</label>
+            <Field type='checkbox' name='course' value='DSA'/>
+            <label>COAL &nbsp;</label>
+            <Field type='checkbox' name='course' value='COAL'/>
+            <br/>
+            <br/>
+
+            {/* Select Menu */}
+            <label>Select Country : </label>
+            <br/>
+            <Field name='country' as= 'select'>
+                <option value='Canada'>Canada</option>
+                <option value='Yamen'>Yamen</option>
+                <option value='Iran'>Iran</option>
+            </Field>
+            <br/>
+            <br/>
+            
+            {/* Textarea */}
+            <label>Comments : </label>
+            <br/>
+            <Field as='textarea' name='comments'/>
+            <button type='submit'>Submit</button>
+        </Form>
+      </Formik>
+
+  -----------------YUP validation with formik components-------
+  
+
+
+  
